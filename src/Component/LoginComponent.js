@@ -1,45 +1,41 @@
-import React, { Component } from 'react'
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import HeaderComponent from './HeaderComponent';
 import './Style.css'
 import UserService from '../services/UserService';
-import { BrowserRouter, Route, Switch,Link} from 'react-router-dom';
+import { Link} from 'react-router-dom';
 
-class LoginComponent extends React.Component {
-    constructor(props) {
-        super(props)
-
-        this.state = {
-            error:'',
-            loginId:'',
-            password:''
-                 
-        }
+const LoginComponent =()=>{
+ const [state, setState]=useState({ error:'',
+ loginId:'',
+ password:''})
+ const navigate = useNavigate();
+   
+  const  handleChange=(e)=>{
+        setState({[e.target.name]:e.target.value});
     }
-    handleChange=(e)=>{
-        this.setState({[e.target.name]:e.target.value});
-    }
- cancel=(e)=>{
+const cancel=(e)=>{
         e.preventDefault();
-        this.props.history.push('/');
+        navigate('/');
     }
-    login=(e)=>{
+   const login=(e)=>{
         e.preventDefault();
-        this.props.history.push('/registration');
+        navigate('/registration');
     }
-    getLoginDetails=(e)=>{
+  const  getLoginDetails=(e)=>{
         e.preventDefault();
-        if(this.state.loginId!='' && this.state.password!=''){
-            UserService.getLogin(this.state.loginId,this.state.password).then(response => {
-           localStorage.setItem("loginId",this.state.loginId);
-           this.props.history.push('/home');
+        if(state.loginId!='' && state.password!=''){
+            UserService.getLogin(state.loginId,state.password).then(response => {
+           localStorage.setItem("loginId",state.loginId);
+           navigate('/home');
        }).catch(err => { 
-        this.setState({error:'Invalid username and password'});});
+        setState({error:'Invalid username and password'});});
        }
         else{
-this.setState({error:'Please enter the fields'});
+            setState({error:'Please enter the fields'});
         }
     }
-    render() {
+   
         return (
             <div>
            <HeaderComponent/>
@@ -49,19 +45,19 @@ this.setState({error:'Please enter the fields'});
                                     <form>
                                     <div className = "form-group">
                                             <input  placeholder="Login Id" name="loginId" className="form-control"  
-                                                value={this.state.loginId} onChange={this.handleChange}/>
+                                                value={state.loginId} onChange={handleChange}/>
                                         </div>
                                          <div className = "form-group">
                                             <input type="password" placeholder="Password" name="password" className="form-control" 
-                                            value={this.state.password} onChange={this.handleChange}/>
+                                            value={state.password} onChange={handleChange}/>
                                         </div>
                                      <div className = "form-group">
-                                        <span className="error">{this.state.error}</span>
+                                        <span className="error">{state.error}</span>
                                          </div> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                         
-                                        <button className="btn btn-success" onClick={this.getLoginDetails.bind(this)}>Login</button>
-                                        <button className="btn btn-danger" onClick={this.cancel.bind(this)} style={{marginLeft: "10px"}}>Cancel</button>
-                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span> <a href='' onClick={this.login.bind()}>New User?Register</a></span><br/>
+                                        <button className="btn btn-success" onClick={getLoginDetails}>Login</button>
+                                        <button className="btn btn-danger" onClick={cancel} style={{marginLeft: "10px"}}>Cancel</button>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span> <a href='' onClick={login}>New User?Register</a></span><br/>
                                         <div className="center"> <Link to="/forgetPassword">Forget Password</Link ></div>
                                        
                                          </form>
@@ -70,6 +66,6 @@ this.setState({error:'Please enter the fields'});
            </div>
         )
     }
-}
 
-export default LoginComponent
+
+export default  LoginComponent;

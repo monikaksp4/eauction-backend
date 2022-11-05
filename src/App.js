@@ -1,6 +1,6 @@
-import logo from './logo.svg';
+
 import './App.css';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Registration from './Component/Registration';
 import LoginComponent from './Component/LoginComponent';
 import HomeComponent from './Component/HomeComponent';
@@ -18,15 +18,15 @@ function App() {
   return (
     <BrowserRouter>
     <div className="Container">
-       <Switch> 
-      <Route path = "/registration" exact component = {Registration}></Route>
-      <Route path = "/" exact component = {LoginComponent}></Route>
-      <Route path = "/home" exact component = {HomeComponent}></Route>
-      <Route path = "/product/:id" exact component = {ProductInformation}></Route>
-      <Route path = "/view" exact component = {ViewTweetComponent}></Route>
-      <Route path = "/forgetPassword" exact component = {ForgetPasswordComponent}></Route>
-      <Route path = "/forgetPasswordSuccess" exact component = {ForgetPasswordSuccessComponent}></Route>
-      </Switch>
+      <Routes> 
+      <Route path = "/registration" exact element = {<Registration/>}></Route>
+      <Route path = "/" exact element = {<LoginComponent/>}></Route>
+      <Route path = "/home" exact element = {<HomeComponent/>}></Route>
+      <Route path = "/product/:id" exact element = {<ProductInformation/>}></Route>
+      <Route path = "/view" exact element = {<ViewTweetComponent/>}></Route>
+      <Route path = "/forgetPassword" exact element = {<ForgetPasswordComponent/>}></Route>
+      <Route path = "/forgetPasswordSuccess" exact element = {<ForgetPasswordSuccessComponent/>}></Route>
+      </Routes>
     </div>
     </BrowserRouter>
   );
