@@ -52,5 +52,5 @@ jobs:
         with:
           app-name: 'eauctionreact'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_C953E2078851496192A684051E191D5E }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_0406B6F29D0648E4B34A1352F1E5F0C4 }}
           package: .
